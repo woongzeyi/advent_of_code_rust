@@ -1,20 +1,29 @@
-use std::fs;
 use itertools::Itertools;
 
-const TARGET_SUM: usize = 2020;
-
 fn main() {
-    let contents = fs::read_to_string("input.txt")
+    let target_sum = 2020;
+
+    let input = std::fs::read_to_string("input.txt")
         .unwrap()
         .lines()
-        .map(|content| content.parse::<usize>().unwrap())
+        .map(|f| f.parse::<usize>().unwrap())
         .collect::<Vec<usize>>();
 
-    println!("Two entries: {}", product_of_n_entries_sum_to_target(&contents, 2, &TARGET_SUM).unwrap());
-    println!("Three entries: {}", product_of_n_entries_sum_to_target(&contents, 3, &TARGET_SUM).unwrap());
+    println!(
+        "Part 1: {}",
+        product_of_n_entries_sum_to_target(&input, 2, &target_sum).unwrap()
+    );
+    println!(
+        "Part 2: {}",
+        product_of_n_entries_sum_to_target(&input, 3, &target_sum).unwrap()
+    );
 }
 
-fn product_of_n_entries_sum_to_target(input: &Vec<usize>, n: usize, target: &usize) -> Option<usize> {
+fn product_of_n_entries_sum_to_target(
+    input: &Vec<usize>,
+    n: usize,
+    target: &usize,
+) -> Option<usize> {
     for combination in input.iter().cloned().combinations(n) {
         if &combination.iter().sum::<usize>() == target {
             return Some(combination.iter().product());
