@@ -88,6 +88,7 @@ fn exactly_one_char_at_either_pos(policy_and_password: &InputLine) -> bool {
     (pos_one == policy_char) ^ (pos_two == policy_char)
 }
 
+// cSpell:disable
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -135,3 +136,4 @@ mod tests {
         }));
     }
 }
+// cSpell:enable
