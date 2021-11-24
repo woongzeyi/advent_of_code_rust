@@ -3,4 +3,5 @@ members = [
     "aoc_2020/day1_report_repair",
     "aoc_2020/day2_password_philosophy",
     "aoc_2020/day3_toboggan_trajectory",
+    "aoc_2020/day4_passport_processing",
 ]
