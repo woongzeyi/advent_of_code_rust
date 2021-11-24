@@ -23,7 +23,7 @@ fn main() {
                 .split('-')
                 .map(|f| f.parse::<usize>().unwrap())
                 .collect::<Vec<usize>>();
-            let policy_char = policy[1].chars().nth(0).unwrap();
+            let policy_char = policy[1].chars().next().unwrap();
             let password = splitted[1].to_string();
 
             InputLine {
@@ -63,7 +63,7 @@ fn contains_valid_char_count(policy_and_password: &InputLine) -> bool {
         .counts()
         .get(&policy_and_password.policy.char)
     {
-        Some(count) => count.clone(),
+        Some(count) => *count,
         None => return false,
     };
     let std::ops::Range { start, end } = policy_and_password.policy.range;

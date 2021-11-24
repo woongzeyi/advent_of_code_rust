@@ -20,7 +20,7 @@ fn main() {
 }
 
 fn product_of_n_entries_sum_to_target(
-    input: &Vec<usize>,
+    input: &[usize],
     n: usize,
     target: &usize,
 ) -> Option<usize> {

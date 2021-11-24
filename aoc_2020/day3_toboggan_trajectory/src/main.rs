@@ -15,14 +15,14 @@ fn main() {
     );
 }
 
-fn tree_encounter_count(slope_right: usize, slope_down: usize, map: &Vec<Vec<char>>) -> usize {
-    map.into_iter()
+fn tree_encounter_count(slope_right: usize, slope_down: usize, map: &[Vec<char>]) -> usize {
+    map.iter()
         .step_by(slope_down)
         .enumerate()
         .skip(1)
         .fold(0, |acc, (idx, row)| {
             let pos_to_access = idx * slope_right % row.len();
-            match row.into_iter().nth(pos_to_access) {
+            match row.get(pos_to_access) {
                 Some(char) => {
                     if *char == '#' {
                         acc + 1
