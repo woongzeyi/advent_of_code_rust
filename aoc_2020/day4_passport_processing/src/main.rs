@@ -38,91 +38,55 @@ fn validate_passport(passport: &HashMap<String, String>, required_fields: &[&str
 }
 
 fn validate_value(passport: &HashMap<String, String>) -> bool {
-    for (key, value) in passport {
-        match key.as_str() {
-            "byr" => match value.parse::<usize>() {
-                Ok(value) => {
-                    if !(1920..=2002).contains(&value) {
-                        return false;
-                    }
-                }
-                Err(_) => return false,
-            },
-            "iyr" => match value.parse::<usize>() {
-                Ok(value) => {
-                    if !(2010..=2020).contains(&value) {
-                        return false;
-                    }
-                }
-                Err(_) => return false,
-            },
-            "eyr" => match value.parse::<usize>() {
-                Ok(value) => {
-                    if !(2020..=2030).contains(&value) {
-                        return false;
-                    }
-                }
-                Err(_) => return false,
-            },
-            "hgt" => match value {
-                cm if cm.ends_with("cm") => match cm.get(..cm.find("cm").unwrap()) {
-                    Some(value) => {
-                        let parsed = value.parse::<usize>();
-                        if parsed.is_err() {
-                            return false;
-                        }
-                        let parsed = parsed.unwrap();
-                        if !(150..=193).contains(&parsed) {
-                            return false;
-                        }
-                    }
-                    None => return false,
-                },
-                inch if inch.ends_with("in") => match inch.get(..inch.find("in").unwrap()) {
-                    Some(value) => {
-                        let parsed = value.parse::<usize>();
-                        if parsed.is_err() {
-                            return false;
-                        }
-                        let parsed = parsed.unwrap();
-                        if !(59..=76).contains(&parsed) {
-                            return false;
-                        }
-                    }
-                    None => return false,
-                },
-                _ => return false,
-            },
-            "hcl" => {
-                if value.starts_with('#') {
-                    match value.get(1..) {
-                        Some(value) => {
-                            if !value
-                                .chars()
-                                .all(|f| ('0'..='9').contains(&f) && ('a'..='f').contains(&f))
-                            {
-                                return false;
-                            }
-                        }
-                        None => return false,
-                    }
-                } else {
-                    return false;
-                }
-            }
-            "ecl" => {
-                if !["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(&value.as_str()) {
-                    return false;
-                }
-            }
-            "pid" => {
-                if !(value.len() == 9 && value.chars().all(|f| f.is_numeric())) {
-                    return false;
-                }
-            }
-            "cid" => { /* Ignored */ }
-            _ => panic!("Unrecognized field"),
-        }
+    todo!();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::collections::HashMap;
+
+    #[test]
+    fn validate_passport_fn_test() {
+        assert!(
+            validate_passport(
+                &[
+                    ("ecl", "gry"),
+                    ("pid", "860033327"),
+                    ("eyr", "2020"),
+                    ("hcl", "#fffffd"),
+                    ("byr", "1937"),
+                    ("iyr", "2017"),
+                    ("cid", "147"),
+                    ("hgt", "183cm"),
+                ]
+                    .iter()
+                    .map(|(key, value)| (key.to_string(), value.to_string()))
+                    .collect::<HashMap<String, String>>(),
+                &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+            )
+        );
+        assert!(
+            !validate_passport(
+                &[
+                    ("ecl", "gry"),
+                    ("pid", "860033327"),
+                    ("hcl", "#fffffd"),
+                    ("byr", "1937"),
+                    ("iyr", "2017"),
+                    ("cid", "147"),
+                    ("hgt", "183cm"),
+                ]
+                    .iter()
+                    .map(|(key, value)| (key.to_string(), value.to_string()))
+                    .collect::<HashMap<String, String>>(),
+                &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+            )
+        );
     }
-    true
+    
+    #[test]
+    fn validate_value_fn_test() {
+        todo!();
+    }
 }
