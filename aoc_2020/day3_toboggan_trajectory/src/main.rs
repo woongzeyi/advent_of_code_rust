@@ -6,7 +6,7 @@ fn main() {
         .collect::<Vec<Vec<char>>>();
     println!("Part 1: {}", tree_encounter_count(3, 1, &input));
     println!(
-        "Part 1: {}", 
+        "Part 2: {}", 
         tree_encounter_count(1, 1, &input) * 
         tree_encounter_count(3, 1, &input) * 
         tree_encounter_count(5, 1, &input) * 
