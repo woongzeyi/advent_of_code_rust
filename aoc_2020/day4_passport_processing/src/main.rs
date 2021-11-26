@@ -48,43 +48,39 @@ mod tests {
 
     #[test]
     fn validate_passport_fn_test() {
-        assert!(
-            validate_passport(
-                &[
-                    ("ecl", "gry"),
-                    ("pid", "860033327"),
-                    ("eyr", "2020"),
-                    ("hcl", "#fffffd"),
-                    ("byr", "1937"),
-                    ("iyr", "2017"),
-                    ("cid", "147"),
-                    ("hgt", "183cm"),
-                ]
-                    .iter()
-                    .map(|(key, value)| (key.to_string(), value.to_string()))
-                    .collect::<HashMap<String, String>>(),
-                &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
-            )
-        );
-        assert!(
-            !validate_passport(
-                &[
-                    ("ecl", "gry"),
-                    ("pid", "860033327"),
-                    ("hcl", "#fffffd"),
-                    ("byr", "1937"),
-                    ("iyr", "2017"),
-                    ("cid", "147"),
-                    ("hgt", "183cm"),
-                ]
-                    .iter()
-                    .map(|(key, value)| (key.to_string(), value.to_string()))
-                    .collect::<HashMap<String, String>>(),
-                &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
-            )
-        );
+        assert!(validate_passport(
+            &[
+                ("ecl", "gry"),
+                ("pid", "860033327"),
+                ("eyr", "2020"),
+                ("hcl", "#fffffd"),
+                ("byr", "1937"),
+                ("iyr", "2017"),
+                ("cid", "147"),
+                ("hgt", "183cm"),
+            ]
+            .iter()
+            .map(|(key, value)| (key.to_string(), value.to_string()))
+            .collect::<HashMap<String, String>>(),
+            &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+        ));
+        assert!(!validate_passport(
+            &[
+                ("ecl", "gry"),
+                ("pid", "860033327"),
+                ("hcl", "#fffffd"),
+                ("byr", "1937"),
+                ("iyr", "2017"),
+                ("cid", "147"),
+                ("hgt", "183cm"),
+            ]
+            .iter()
+            .map(|(key, value)| (key.to_string(), value.to_string()))
+            .collect::<HashMap<String, String>>(),
+            &["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+        ));
     }
-    
+
     #[test]
     fn validate_value_fn_test() {
         todo!();
